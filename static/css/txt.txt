@@ -1,0 +1,49 @@
+<div id="mapid" class="map" ></div>
+    <script type="text/javascript">
+        var lyrHistoricMap;
+        var objOverlays;
+        //initilize the map
+        var map = L.map('mapid')
+            .setView([52.516743, 13.384953], 12);
+
+        // Basemap urls
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        {% load static %}
+        lyrHistoricMap = L.imageOverlay('{% static '/georefmaps/Berlin_Mitte.png' %}', [[52.5836112, 13.3578447],
+            [52.5001216, 13.5001085]]).addTo(map);
+
+        objOverlays = {
+            "Image1":lyrHistoricMap
+        };
+
+        var buttonContainer = L.control({position: 'topleft'});
+        buttonContainer.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'buttonContainer');
+            div.innerHTML = '<button class="button1" id="myButton">Download Shapefile</button>';
+        return div;
+        };
+        buttonContainer.addTo(map);
+
+        var buttonContainer2 = L.control({position: 'topleft'});
+        buttonContainer2.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'buttonContainer');
+            div.innerHTML = '<button class="button2" id="myButton">Contribute Map</button>'
+        return div;
+        };
+        buttonContainer2.addTo(map);
+
+
+var rasterOverlay = L.imageOverlay(imageUrl, imageBounds).addTo(map);
+    </script>
+
+
+        for i in Polygons:
+        g = folium.GeoJson(
+            i.gjson,
+            name=i.name
+            ).add_to(m)
+        folium.GeoJsonTooltip(fields=["name"]).add_to(g)
+        m = m._repr_html_()  # updated

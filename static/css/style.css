@@ -1,0 +1,63 @@
+head {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh; /* 100% der Ansicht des Benutzers */
+}
+
+footer {
+    margin: 0;
+    padding-bottom: 2vh;
+    background-color: lightgray;
+}
+
+#bg-div {
+    margin: 0;
+    padding-top: 1vh;
+    background-color: darkslategray;
+}
+
+.logo {
+    letter-spacing: 0.2em;
+    word-spacing: 0.05em;
+    margin: 0;
+    padding-bottom: 1vh;
+    padding-left: 3vh;
+}
+.bottombar {
+    padding: 2vh;
+}
+#padding-left {
+    padding-left: 2vh
+}
+.infotext{
+    color:black;
+    text-align: center;
+    margin: 1vh;
+    font-size: 1.2em;
+    letter-spacing: 0.1em;
+}
+#unter{
+    font-size: 1em;
+}
+
+.up{
+    font-family: 'Roboto', sans-serif;
+}
+
+#spann {
+
+}
+
+.upload{
+    font-family: 'Roboto', sans-serif;
+}
+
+.liste1{
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.5em;
+}
