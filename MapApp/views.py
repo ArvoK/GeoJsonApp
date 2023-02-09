@@ -43,10 +43,10 @@ def upload_file(request):
     return render(request, 'upload.html', {'form': form})
 
 def map(request):
-    Plist = points.objects.values('name').annotate(total=Count('name'))
+    Plist = points.objects.all()
     Llist = line.objects.all()
     Polylist = polygon.objects.all()
-    MPolylist = GeoData.objects.values('name').annotate(total=Count('name'))
+    MPolylist = GeoData.objects.all()
     Polygons = polygon.objects.raw\
         ('SELECT id as id , ST_AsGeoJSON(polygons) as gjson, name as lname FROM public."MapApp_polygon"')
     Lines = line.objects.raw\
