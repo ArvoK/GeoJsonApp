@@ -1,63 +1,52 @@
-head {
-    margin: 0;
-    padding: 0;
-}
-
 body {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh; /* 100% der Ansicht des Benutzers */
+    background-color: #FFCDD2;
 }
 
-footer {
-    margin: 0;
-    padding-bottom: 2vh;
-    background-color: lightgray;
+.bg-black {
+    background-color: #000;
 }
 
-#bg-div {
-    margin: 0;
-    padding-top: 1vh;
-    background-color: darkslategray;
+#logo {
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
 }
 
-.logo {
-    letter-spacing: 0.2em;
-    word-spacing: 0.05em;
-    margin: 0;
-    padding-bottom: 1vh;
-    padding-left: 3vh;
+.navbar-brand {
+    padding: 14px 20px;
+    font-size: 16px;
 }
-.bottombar {
-    padding: 2vh;
+
+.navbar-nav {
+    width: 100%;
 }
-#padding-left {
-    padding-left: 2vh
-}
-.infotext{
-    color:black;
+
+.nav-item {
+    padding: 6px 14px;
     text-align: center;
-    margin: 1vh;
-    font-size: 1.2em;
-    letter-spacing: 0.1em;
-}
-#unter{
-    font-size: 1em;
 }
 
-.up{
-    font-family: 'Roboto', sans-serif;
+.nav-link {
+    padding-bottom: 10px;
 }
 
-#spann {
-
+.v-line {
+    background-color: gray;
+    width: 1px;
+    height: 20px;
 }
 
-.upload{
-    font-family: 'Roboto', sans-serif;
+.navbar-collapse.collapse.in {
+    display: block !important;
 }
 
-.liste1{
-    font-family: 'Roboto', sans-serif;
-    font-size: 0.5em;
+@media (max-width: 576px) {
+    .nav-item {
+        width: 100%;
+        text-align: left;
+    }
+
+    .v-line {
+        display: none;
+    }
 }

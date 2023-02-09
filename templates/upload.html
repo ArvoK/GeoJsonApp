@@ -1,12 +1,8 @@
-<! DOCTYPE html>
-<html>
-     <head>
-         <meta charset="utf-8">
-         <title>Minimal Django File Upload Example</title>
-     </head>
-     <body>
-        {% include 'messages.html' %}
-         <!.. Upload form. Note enctype attribute! ..>
+{% extends 'base.html' %}
+{% block content %}
+    {% include 'messages.html' %}
+     <!.. Upload form. Note enctype attribute! ..>
+    <div class="container-xxl align-content-center m-5">
          <form action=" {% url 'upload' %}" method="post" enctype="multipart/form-data">
              {% csrf_token %}
              <p>
@@ -14,8 +10,5 @@
              </p>
              <p><input type="submit" value="Upload" /></p>
          </form>
-        <span id="spann">
-            <h1><a class="upload" href="{% url 'map' %}">Map</a></h1>
-        </span>
-     </body>
-</html>
+    </div>
+{% endblock content %}

@@ -1,4 +1,45 @@
 {% extends 'base.html' %}
 {% block content %}
-    {{ my_map|safe }}
+    <div class="container-xxl">
+        <div class="row">
+            <hr class="hr" />
+            {{ my_map|safe }}
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="bg-gradient text-center">
+                <h1 class="display-6"> Points </h1>
+                    {% for punkt in Plist %}
+                        <li>{{ punkt.name }} <a href="{% url 'download_point' punkt.id %}">Download</a></li>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col">
+                <div class="bg-gradient text-center">
+                    <h1 class="display-6">Lines </h1>
+                    <div>
+                        {% for linie in Llist %}
+                            <li>{{ linie.name }} <a href="{% url 'download_line' linie.id %}">Download</a></li>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+            <div class="bg-gradient text-center">
+                <h1 class="display-6">Polygons</h1>
+                {% for poly in Polylist %}
+                    <li>{{ poly.name }} <a href="{% url 'download_poly' poly.id %}" class="download-link">Download</a></li>
+                {% endfor %}
+            </div>
+            </div>
+            <div class="col">
+            <div class="bg-gradient text-center">
+                <h1 class="display-6">MultiPolygons</h1>
+                {% for mpoly in MPolylist %}
+                    <li>{{ mpoly.name }} <a href="{% url 'download_poly'  mpoly.id %}" class="download-link">Download</a></li>
+                {% endfor %}
+            </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

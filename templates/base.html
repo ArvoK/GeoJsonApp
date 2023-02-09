@@ -2,54 +2,52 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>GeoJson Viewer</title>
+    <title>GeoJson</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}">
 {#    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">#}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    <div class="container-xxl">
-        <div class="row text-center">
-            <h1 class="display-1"> GeoJson Viewer </h1>
+<div class="container-fluid px-0">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-black py-0 px-0 " >
+        {% load static %}
+        <a class="navbar-brand"><img id="logo" src="{% static 'png/logo.png'%}"> GeoDepot</a>
+        <span class="v-line"></span>
+        <button class="navbar-toggler mr-3" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'map' %}">Map</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'upload' %}">Upload</a>
+                </li>
+            </ul>
         </div>
-        <div class="row">
-            {% include 'messages.html' %}
-            <div class="row">
-                {% block content %}{% endblock %}
-            </div>
-            <div class="row">
-                <div class="col">
-                    <h1 class="display-6"> Points </h1>
-                    <ul>
-                        {% for punkt in Plist %}
-                            <li>{{ punkt.name }} <a href="{% url 'download_point' punkt.id %}">Download</a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div class="col">
-                    <h1 class="display-6">Lines </h1>
-                    {% for linie in Llist %}
-                        <li>{{ linie.name }} <a href="{% url 'download_line' linie.id %}">Download</a></li>
-                    {% endfor %}
-                </div>
-                <div class="col">
-                    <h1 class="display-6">Polygons</h1>
-                    {% for poly in Polylist %}
-                        <li>{{ poly.name }} <a href="{% url 'download_poly' poly.id %}" class="download-link">Download</a></li>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-        <div class="row grid gap-3 text-center">
-            <a href={% url 'upload' %}><button type="button" class="btn btn-secondary">Upload your GeoJson File</button></a>
-        </div>
-        <div class="row text-center">
-                <p class="fs-5"> BHT-Berlin Geoinformatik: Geodatendienste (WiSe2223) </p>
-                <p class="fs-6"> Phillip Pollack, Nele Plumecke, Gregor Wallach, Arvo Klöck </p>
-        </div>
+    </nav>
+</div>
+        {% block content %}{% endblock %}
     </div>
 </body>
+<footer>
+    <div class="container-xxl">
+        <div class="row g-10">
+            <hr class="hr" />
+        </div>
+        <div class="row text-center g-10">
+            <div class="container">
+                <p class="fs-5"> BHT-Berlin Geoinformatik: Geodatendienste (WiSe2223) </p>
+                <p class="fs-6"> Phillip Pollack, Nele Plumecke, Gregor Wallach, Arvo Klöck </p>
+            </div>
+        </div>
+    </div>
+</footer>
 </html>

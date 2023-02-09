@@ -1,2 +1,4 @@
 venv/
 .idea/
+MapApp/migrations/
+__pycache__/
