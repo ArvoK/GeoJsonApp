@@ -9,7 +9,7 @@ from django.contrib.gis.geos import GEOSGeometry
 from django.contrib import messages
 import folium
 import json
-
+from MapApp import download
 def upload_file(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
@@ -43,6 +43,7 @@ def upload_file(request):
     return render(request, 'upload.html', {'form': form})
 
 def map(request):
+    MultiPolyhead = GeoData.objects.values('name').annotate(total=Count('name'))
     Plist = points.objects.all()
     Llist = line.objects.all()
     Polylist = polygon.objects.all()
@@ -107,38 +108,21 @@ def map(request):
 
     m = m._repr_html_()  # updated
 
-    context = {"my_map": m, "Plist": Plist, "Llist": Llist, "Polylist": Polylist, "Polygons": Polygons, "MPolylist": MPolylist}
+    context = {"my_map": m, "Plist": Plist, "Llist": Llist, "Polylist": Polylist, "Polygons": Polygons, "MPolylist": MPolylist,"MHead": MultiPolyhead}
 
     return render(request, 'map.html', context)
 
 def download_point(request, point_id):
-    Points = polygon.objects.raw\
-        ('''SELECT id as id , ST_AsGeoJSON(point) as gjson, name as lname FROM public."MapApp_points" WHERE id = %s''', [point_id])
-    for i in Points:
-        response = HttpResponse(i.gjson, content_type='application/json')
-        response['Content-Disposition'] = 'attachment; filename="{}.json"'.format(i.lname)
-    return response
+    data = download.downloaddata(model=points, objectsid=point_id, model_name='points')
+    return data
 
 def download_line(request, line_id):
-    lines = line.objects.raw\
-        ('''SELECT id as id , ST_AsGeoJSON(lines) as gjson, name as lname FROM public."MapApp_line" WHERE id = %s''', [line_id])
-    for i in lines:
-        response = HttpResponse(i.gjson, content_type='application/json')
-        response['Content-Disposition'] = 'attachment; filename="{}.json"'.format(i.lname)
-    return response
-
+    data = download.downloaddata(model=line, objectsid=line_id, model_name='line')
+    return data
 def download_poly(request, poly_id):
-    poly = polygon.objects.raw\
-        ('''SELECT id as id , ST_AsGeoJSON(polygons) as gjson, name as lname FROM public."MapApp_polygon" WHERE id = %s''', [poly_id])
-    for i in poly:
-        response = HttpResponse(i.gjson, content_type='application/json')
-        response['Content-Disposition'] = 'attachment; filename="{}.json"'.format(i.lname)
-    return response
+    data = download.downloaddata(model=polygon, objectsid=poly_id, model_name='polygon')
+    return data
 
 def download_multipoly(request, mpoly_id):
-    mpoly = polygon.objects.raw\
-        ('''SELECT id as id , ST_AsGeoJSON(geom) as gjson, name as lname FROM public."MapApp_polygon" WHERE id = %s''', [mpoly_id])
-    for i in mpoly:
-        response = HttpResponse(i.gjson, content_type='application/json')
-        response['Content-Disposition'] = 'attachment; filename="{}.json"'.format(i.lname)
-    return response
+    data = download.downloaddata(model=GeoData, objectsid=mpoly_id, model_name='GeoData')
+    return data
