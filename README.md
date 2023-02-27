@@ -6,7 +6,7 @@ docker-compose -f docker-compose.yml up --build
 
 
 
-##Run production ready docker container image (not working so far):
+## Run production ready docker container image (not working so far):
 
 docker-compose -f docker-compose.prod.yml up --build
 
