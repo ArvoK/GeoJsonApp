@@ -12,22 +12,29 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+import environ
+
+
+env = environ.Env(
+    DEBUG=(bool, False)
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-GDAL_LIBRARY_PATH = "C:\OSGeo4W\\bin\gdal305"
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+#GDAL_LIBRARY_PATH = "C:\OSGeo4W\\bin\gdal305"
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-p0x27*p7!p=p#g9pposrluf!!7ysz-=&mzsyyr84%rmbc1k@fe'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 
 # Application definition
@@ -42,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'MapApp.apps.MapappConfig',
     'GeoJsonApp',
+    'django.contrib.postgres',
 ]
 
 MIDDLEWARE = [
@@ -82,11 +90,11 @@ WSGI_APPLICATION = 'GeoJsonApp.wsgi.application'
 DATABASES =  {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'geodatendienste',
-        'USER': 'user002',
-        'PASSWORD': '123456789',
-        'HOST': 'localhost',
-        'PORT': '5432'
+        'NAME': env('POSTGRES_DB'),
+        'USER': env('POSTGRES_USER'),
+        'PASSWORD': env('POSTGRES_PASSWORD'),
+        'HOST': env('DB_HOST'),
+        'PORT': env('DB_PORT'),
     }
 }
 

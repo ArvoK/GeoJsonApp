@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from MapApp.forms import UploadFileForm
-from MapApp.models import GeoData, polygon, line, points
+from MapApp.models import multipolygon, polygon, line, points
 from django.db.models import Count
 from django.contrib.gis.geos import GEOSGeometry
 from django.contrib import messages
@@ -31,9 +31,9 @@ def upload_file(request):
                         elif geom.geom_type == 'Point':
                             points.objects.create(name=name, point=geom)
                         elif geom.geom_type == 'MultiPolygon':
-                            GeoData.objects.create(name=name, geom=geom)
+                            multipolygon.objects.create(name=name, geom=geom)
                         else:
-                            GeoData.objects.create(name='fail')
+                            multipolygon.objects.create(name='fail')
                 #return HttpResponse("The name of the uploaded file is: " + str(file))
                 return redirect('map')
             else:
@@ -43,19 +43,19 @@ def upload_file(request):
     return render(request, 'upload.html', {'form': form})
 
 def map(request):
-    MultiPolyhead = GeoData.objects.values('name').annotate(total=Count('name'))
+    MultiPolyhead = multipolygon.objects.values('name').annotate(total=Count('name'))
     Plist = points.objects.all()
     Llist = line.objects.all()
     Polylist = polygon.objects.all()
-    MPolylist = GeoData.objects.all()
+    MPolylist = multipolygon.objects.all()
     Polygons = polygon.objects.raw\
         ('SELECT id as id , ST_AsGeoJSON(polygons) as gjson, name as lname FROM public."MapApp_polygon"')
     Lines = line.objects.raw\
         ('SELECT id as id , ST_AsGeoJSON(lines) as gjson, name as lname FROM public."MapApp_line"')
     Points = points.objects.raw\
         ('SELECT id as id , ST_AsGeoJSON(point) as gjson, name as lname FROM public."MapApp_points"')
-    MultiPolygons = GeoData.objects.raw\
-        ('SELECT id as id , ST_AsGeoJSON(geom) as gjson, name as lname FROM public."MapApp_geodata"')
+    MultiPolygons = multipolygon.objects.raw\
+        ('SELECT id as id , ST_AsGeoJSON(geom) as gjson, name as lname FROM public."MapApp_multipolygon"')
 
 
     m = folium.Map(width='100%',
@@ -124,5 +124,5 @@ def download_poly(request, poly_id):
     return data
 
 def download_multipoly(request, mpoly_id):
-    data = download.downloaddata(model=GeoData, objectsid=mpoly_id, model_name='GeoData')
+    data = download.downloaddata(model=multipolygon, objectsid=mpoly_id, model_name='multipolygon')
     return data
