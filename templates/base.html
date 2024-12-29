@@ -6,21 +6,17 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}">
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'js/bootstrap.bundle.js'%}">
-    {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}">
-{#    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">#}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 </head>
 
 <body>
-<div class="container-fluid px-0">
-    <nav class="navbar navbar-expand-sm navbar-dark bg-black py-0 px-0 " >
+<div class="container-fluid d-flex flex-column min-vh-100 px-0">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-black py-0 px-0">
         {% load static %}
-        <a class="navbar-brand"><img id="logo" src="{% static 'png/logo.png'%}"> GeoDepot</a>
+        <a class="navbar-brand"><img id="logo" src="{% static 'png/logo.png'%}"> GeoJson</a>
         <span class="v-line"></span>
         <button class="navbar-toggler mr-3" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -36,10 +32,10 @@
             </ul>
         </div>
     </nav>
-</div>
+    <div class="flex-grow-1">
         {% block content %}{% endblock %}
     </div>
-</body>
+</div>
 <footer>
     <div class="container-xxl">
         <div class="row g-10">
@@ -47,10 +43,11 @@
         </div>
         <div class="row text-center g-10">
             <div class="container">
-                <p class="fs-5"> BHT-Berlin Geoinformatik: Anwendungsentwicklung mit Python (WiSe2223) </p>
-                <p class="fs-6"> Gregor Wallach, Arvo Klöck </p>
+                <p class="fs-5">  Wintersemester 24/25 </p>
+                <p class="fs-6"> Sophie Rüdiger </p>
             </div>
         </div>
     </div>
 </footer>
+</body>
 </html>

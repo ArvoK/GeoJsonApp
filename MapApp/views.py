@@ -62,7 +62,7 @@ def map(request):
                    height='100%',
                    location=[52.516743, 13.384953],
                    zoom_start=10,
-                   tiles='https://server.arcgisonline.com/arcgis/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+                   tiles='https://server.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
                    attr='test'
                    )
 
